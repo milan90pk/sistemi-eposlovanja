@@ -3,6 +3,10 @@ import { configDotenv } from 'dotenv'
 import express from 'express'
 import morgan from 'morgan'
 import { AppDataSource } from './db'
+import { UserService } from './services/user.service'
+import { UserRoute } from './routes/user.route'
+import { IntexRoute } from './routes/intex.route'
+import { MachinesRoute } from './routes/machines.route'
 
 const app = express()
 app.use(express.json())
@@ -20,15 +24,10 @@ AppDataSource.initialize().then(()=>{
 
 
 
+app.use('/api/user', UserRoute);
+app.use('/api/intex', IntexRoute);
+app.use('/api/machines', MachinesRoute);
 
-
-
-
-app.get("/",(req,res)=>{
-    res.json({
-        message: "Hello World From ExpressJS and Typescript"
-    })
-})
 
 
 app.get("*",(req,res)=>{
